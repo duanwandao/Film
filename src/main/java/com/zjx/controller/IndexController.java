@@ -22,4 +22,22 @@ public class IndexController {
         modelAndView.setViewName("index");
         return modelAndView;
     }
+
+    /**
+     * 登录请求
+     * @return
+     */
+    @RequestMapping("/login")
+    public String login(){
+        return "/login";
+    }
+
+    /**
+     * 进入后台管理请求
+     * @return
+     */
+    @RequestMapping("/admin")
+    public String toAdmin(){
+        return "/admin/main";
+    }
 }

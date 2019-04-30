@@ -6,4 +6,6 @@ package com.zjx.film;
  * @create 2019-04-02 13:11
  */
 public interface aa {
+
+    int a=89;
 }
