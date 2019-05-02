@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"></meta>
+<meta charset="UTF-8"/>
     <title>后台管理界面-电影推酷网</title>
-    <link rel="stylesheet" type="text/css" href="/asserts/jquery-easyui-1.3.3/themes/default/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="/asserts/jquery-easyui-1.3.3/themes/icon.css" />
-    <script type="text/javascript" src="/asserts/jquery-easyui-1.3.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/asserts/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/asserts/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.3.3/themes/default/easyui.css" th:href="@{/jquery-easyui-1.3.3/themes/default/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.3.3/themes/icon.css" th:href="@{/jquery-easyui-1.3.3/themes/icon.css}"/>
+    <script type="text/javascript" src="/static/jquery-easyui-1.3.3/jquery.min.js" th:src="@{/jquery-easyui-1.3.3/jquery.min.js}"></script>
+    <script type="text/javascript" src="/static/jquery-easyui-1.3.3/jquery.easyui.min.js" th:src="@{/jquery-easyui-1.3.3/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" src="/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js" th:src="@{/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js}"></script>
 </head>
 <script type="text/javascript">
 
@@ -87,7 +87,7 @@
     <table style="padding: 5px" width="100%">
         <tr>
             <td width="50%">
-                <img alt="logo" src="/asserts/images/logo.png" />
+                <img alt="logo" src="/static/images/logo.jpg" style='width: 375px;height:65px' th:src="@{/images/logo.jpg}"/>
             </td>
             <td valign="bottom" align="right" width="50%">
                 <font size="3">&nbsp;&nbsp;<strong>欢迎：</strong><span th:text="${#httpServletRequest.remoteUser}"></span></font>
@@ -106,7 +106,7 @@
 
 <div region="west" style="width: 200px" title="导航菜单" split="true">
     <div style="padding-top: 10px;padding-left: 10px;" data-toggle="topjui-sidemenu" data-options="data:data">
-        <a href="javascript:openTab('添加电影信息','addFilm.html','icon-addFilm')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-addFilm'" style="width: 150px;">添加电影信息</a>
+        <a href="javascript:openTab('添加电影信息','film/toAddFilm','icon-addFilm')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-addFilm'" style="width: 150px;">添加电影信息</a>
         <a href="javascript:openTab('电影动态管理','infoManage.html','icon-dynamic')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dynamic'" style="width: 150px;">电影动态管理</a>
         <a href="javascript:openTab('电影信息管理','filmManage.html','icon-film')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-film'" style="width: 150px;">电影信息管理</a>
         <a href="javascript:openTab('网址信息管理','webSiteManage.html','icon-website')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-website'" style="width: 150px;">网址信息管理</a>

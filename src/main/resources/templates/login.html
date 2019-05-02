@@ -4,9 +4,9 @@
   <meta charset="UTF-8"></meta>
   <title>管理员登录界面</title>
   <!-- Vendor CSS -->
-  <link href="/asserts/login/css/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet" type="text/css"></link>
+  <link href="/static/login/css/material-design-iconic-font/css/material-design-iconic-font.min.css"  th:href="@{/login/css/material-design-iconic-font/css/material-design-iconic-font.min.css}"  rel="stylesheet" type="text/css"/>
   <!-- CSS -->
-  <link href="/asserts/login/css/app.min.1.css" rel="stylesheet" type="text/css"></link>
+  <link href="/static/login/css/app.min.1.css" rel="stylesheet" th:href="@{/login/css/app.min.1.css}" type="text/css" />
 	 <script type="text/javascript">
 		function submitData(){
 			var username=$("#username").val();
@@ -62,30 +62,30 @@
     
  </body>
  	
- 	<script src="/asserts/login/js/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="/asserts/login/js/log.js"></script>
+ 	<script src="/static/login/js/bower_components/jquery/dist/jquery.min.js" th:src="@{/login/js/bower_components/jquery/dist/jquery.min.js}" ></script>
+	<script src="/static/login/js/log.js" th:src="@{/login/js/log.js}" ></script>
 	<!-- Angular -->
-	<script src="/asserts/login/js/bower_components/angular/angular.min.js"></script>
-	<script src="/asserts/login/js/bower_components/angular-resource/angular-resource.min.js"></script>
-	<script src="/asserts/login/js/bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="/static/login/js/bower_components/angular/angular.min.js" th:src="@{/login/js/bower_components/angular/angular.min.js}" ></script>
+	<script src="/static/login/js/bower_components/angular-resource/angular-resource.min.js" th:src="@{/login/js/bower_components/angular-resource/angular-resource.min.js}" ></script>
+	<script src="/static/login/js/bower_components/angular-animate/angular-animate.min.js" th:src="@{/login/js/bower_components/angular-animate/angular-animate.min.js}" ></script>
 	
 	
 	<!-- Angular Modules -->
-	<script src="/asserts/login/js/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-	<script src="/asserts/login/js/bower_components/angular-loading-bar/src/loading-bar.js"></script>
-	<script src="/asserts/login/js/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
-	<script src="/asserts/login/js/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="/static/login/js/bower_components/angular-ui-router/release/angular-ui-router.min.js" th:src="@{/login/js/bower_components/angular-ui-router/release/angular-ui-router.min.js}" ></script>
+	<script src="/static/login/js/bower_components/angular-loading-bar/src/loading-bar.js" th:src="@{/login/js/bower_components/angular-loading-bar/src/loading-bar.js}" ></script>
+	<script src="/static/login/js/bower_components/oclazyload/dist/ocLazyLoad.min.js" th:src="@{/login/js/bower_components/oclazyload/dist/ocLazyLoad.min.js}" ></script>
+	<script src="/static/login/js/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js" th:src="@{/login/js/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js}" ></script>
 	
 	<!-- Common js -->
-	<script src="/asserts/login/js/bower_components/angular-nouislider/src/nouislider.min.js"></script>
-	<script src="/asserts/login/js/bower_components/ng-table/dist/ng-table.min.js"></script>
+	<script src="/static/login/js/bower_components/angular-nouislider/src/nouislider.min.js" th:src="@{/login/js/bower_components/angular-nouislider/src/nouislider.min.js}" ></script>
+	<script src="/static/login/js/bower_components/ng-table/dist/ng-table.min.js" th:src="@{/login/js/bower_components/ng-table/dist/ng-table.min.js}" ></script>
 	
 
-	<script src="/asserts/login/js/app.js"></script>
-	<script src="/asserts/login/js/controllers/main.js"></script>
-	<script src="/asserts/login/js/controllers/ui-bootstrap.js"></script>
+	<script src="/static/login/js/app.js" th:src="@{/login/js/app.js}" ></script>
+	<script src="/static/login/js/controllers/main.js" th:src="@{/login/js/controllers/main.js}" ></script>
+	<script src="/static/login/js/controllers/ui-bootstrap.js" th:src="@{/login/js/controllers/ui-bootstrap.js}" ></script>
 	
 	
 	<!-- Template Modules -->
-	<script src="/asserts/login/js/modules/form.js"></script>
+	<script src="/static/login/js/modules/form.js" th:src="@{/login/js/modules/form.js}" ></script>
 </html>

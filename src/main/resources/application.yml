@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
   context-path: /
 
 spring:
@@ -11,6 +11,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+# 控制台显示SQL语句
+      show-sql: true
   thymeleaf:
     cache: false
+  http:
+    multipart:
+# 上传最大大小   上传图片时用到
+      max-file-size: 100MB
+
+imageFilePath: D://aacode//java//Film//src//main//resources//static//filmImages//

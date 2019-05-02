@@ -15,6 +15,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+	private String[] staticResources = {
+			"/ckeditor/**",
+			"/filmImages/**",
+			"/images/**",
+			"/home/**",
+			"/jquery-easyui-1.3.3/**",
+			"/login/**",
+	};
+
 	/**
 	 * 配置用户认证
 	 */
@@ -33,7 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors().disable().headers().disable()
 				.authorizeRequests()
-					.antMatchers("/","/asserts/**").permitAll() // 配置不需要身份认证的请求地址
+					.antMatchers("/").permitAll() // 配置不需要身份认证的请求地址
+					.antMatchers(staticResources).permitAll()
 					.anyRequest().authenticated() // 其他所有访问路径需要身份认证
 					.and()
 				.formLogin()

@@ -64,6 +64,12 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
+        <!--文件上传下载-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
     </dependencies>
 
     <build>
