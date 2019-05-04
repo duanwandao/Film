@@ -1,13 +1,7 @@
 package com.zjx.entity;
 
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
 
 /**
  * 电影实体
@@ -19,7 +13,7 @@ import javax.persistence.Table;
 public class Film {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; // 编号
 	
 	@Column(length=200)

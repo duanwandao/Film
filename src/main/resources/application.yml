@@ -11,8 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-# 控制台显示SQL语句
-      show-sql: true
+    show-sql: true
   thymeleaf:
     cache: false
   http:

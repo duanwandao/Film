@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Link {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id; // 编号
 
     @Column(length=500)
