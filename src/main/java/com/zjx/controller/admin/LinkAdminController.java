@@ -23,14 +23,14 @@ public class LinkAdminController {
     private LinkService linkService;
 
     @RequestMapping("/toLinkManage")
-    public String toAddFilm(){
+    public String toAddFilm() {
         return "admin/linkManage";
     }
 
     @GetMapping("/list")
     @ResponseBody
-    public Map<String,Object> list(@RequestParam(value = "page",required = false)Integer page,@RequestParam(value = "rows",required = false)Integer rows)throws Exception {
-        List<Link> linkList = linkService.list(page-1, rows);    //bootstrap 分页页数从1开始
+    public Map<String, Object> list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) throws Exception {
+        List<Link> linkList = linkService.list(page - 1, rows);    //bootstrap 分页页数从1开始
         Long total = linkService.getCount();
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rows", linkList);
@@ -40,14 +40,15 @@ public class LinkAdminController {
 
     /**
      * 添加或者修改友情链接
+     *
      * @param link
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/save", method ={RequestMethod.GET, RequestMethod.PUT})
+    @RequestMapping(value = "/save", method = {RequestMethod.GET, RequestMethod.PUT})
     @ResponseBody
-    public Map<String,Object> save(Link link)throws Exception {
-        Map<String,Object> resultMap=new HashMap<>();
+    public Map<String, Object> save(Link link) throws Exception {
+        Map<String, Object> resultMap = new HashMap<>();
         linkService.save(link);
         resultMap.put("success", true);
         return resultMap;
@@ -55,10 +56,10 @@ public class LinkAdminController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public Map<String,Object> delete(@RequestParam(value = "ids")String ids)throws Exception{
-        String[] idsStr=ids.split(",");
-        Map<String,Object> resultMap=new HashMap<>();
-        for(int i=0;i<idsStr.length;i++){
+    public Map<String, Object> delete(@RequestParam(value = "ids") String ids) throws Exception {
+        String[] idsStr = ids.split(",");
+        Map<String, Object> resultMap = new HashMap<>();
+        for (int i = 0; i < idsStr.length; i++) {
             linkService.delete(Integer.parseInt(idsStr[i]));
         }
         resultMap.put("success", true);
