@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,12 +35,18 @@ public class FilmAdminController {
     private FilmService filmService;
 
     @RequestMapping("/toAddFilm")
-    public String toAddFilm(){
+    public String toAddFilm() {
         return "admin/addFilm";
+    }
+
+    @RequestMapping("/toFilmManage")
+    public String toFilmManage() {
+        return "admin/filmManage";
     }
 
     /**
      * 添加或者修改电影信息
+     *
      * @param film
      * @param file
      * @return
@@ -46,7 +54,7 @@ public class FilmAdminController {
      */
     @RequestMapping("/save")
     @ResponseBody
-    public Map<String,Object> save(Film film, @RequestParam("imageFile")MultipartFile file)throws  Exception {
+    public Map<String, Object> save(Film film, @RequestParam("imageFile") MultipartFile file) throws Exception {
         if (!file.isEmpty()) {
             String fileName = file.getOriginalFilename();
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -64,23 +72,69 @@ public class FilmAdminController {
 
     @RequestMapping("/ckeditorUpload")
     @ResponseBody
-    public String ckeditorUpload(@RequestParam("upload")MultipartFile file, String CKEditorFuncNum)throws Exception{
+    public String ckeditorUpload(@RequestParam("upload") MultipartFile file, String CKEditorFuncNum) throws Exception {
         String fileName = file.getOriginalFilename();  // 获取文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 获取文件的后缀
-        String newFileName= DateUtil.getCurrentDateStr()+suffixName;
+        String newFileName = DateUtil.getCurrentDateStr() + suffixName;
 
-        FileUtils.copyInputStreamToFile(file.getInputStream(),new File(imageFilePath+newFileName));
+        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(imageFilePath + newFileName));
         //file.transferTo(new File(imageFilePath+newFileName));  以前用的是这种，springMVC封装的方法
 
         //注意图片上传后可能需要停几秒才会显示，如果操作太快会发现没有图片显示，这并不是bug。
         //最好上传后直接地址栏进图片地址查看是否404，太快了会404，停一会就好了
         //还有一点是注意路径可能被拦截，要配置好路径
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         sb.append("<script type=\"text/javascript\">");
-        sb.append("window.parent.CKEDITOR.tools.callFunction("+ CKEditorFuncNum + ",'" +"/filmImages/"+ newFileName + "','')");
+        sb.append("window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum + ",'" + "/filmImages/" + newFileName + "','')");
         sb.append("</script>");
 
         return sb.toString();
-
     }
+
+    /**
+     * 分页查询电影信息
+     *
+     * @param film
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/list")
+    @ResponseBody
+    public Map<String, Object> save(Film film, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
+        List<Film> filmList = filmService.list(film, page - 1, rows);
+        Long total = filmService.getCount(film);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("rows", filmList);
+        resultMap.put("total", total);
+        return resultMap;
+    }
+
+    /**
+     * 删除电影信息
+     *
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Map<String, Object> delete(@RequestParam(value = "ids") String ids) {
+        String[] idsStr = ids.split(",");
+        for (String id : idsStr) {
+            filmService.delete(Integer.parseInt(id));
+        }
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("success", true);
+        return resultMap;
+    }
+
+    @RequestMapping("/toModifyFilm")
+    public ModelAndView toModifyFilm(@RequestParam(value = "id", required = false) Integer id, ModelAndView modelAndView) {
+        Film film = filmService.findById(id);
+        modelAndView.addObject("film", film);
+        modelAndView.setViewName("admin/modifyFilm");
+        return modelAndView;
+    }
+
 }

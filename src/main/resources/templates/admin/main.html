@@ -18,42 +18,12 @@
 
     /*<![CDATA[*/
 
-    $(function () {
-
-        //捕捉 'onSelect' 事件
-        /*$('#tabs').tabs({
-            onSelect:function(title){
-                alert(title+' is selected');
-            }
-        });*/
-
-
-    });
-
     function logout() {
         $.messager.confirm("系统提示", "您确定要退出系统吗？", function (r) {
             if (r) {
                 window.location.href = "/logout";
             }
         });
-
-        /*$.messager.show({
-            title:'My Title',
-            msg:'Message will be closed after 2 seconds.',
-            showType:'show',
-            timeout: 3000,
-            style:{
-                right:'',
-                top:document.body.scrollTop+document.documentElement.scrollTop,
-                bottom:''
-            }
-        });*/
-
-        /* $.messager.progress({
-             interval:400
-         });*/
-
-
     }
 
     function openTab(text, url, iconCls) {
@@ -64,25 +34,13 @@
             $("#tabs").tabs("add", {
                 title: text,
                 iconCls: iconCls,
+                iconCls: 'icon-reload',
                 closable: true,
                 content: content
             });
-
-            /* // 添加一个新的标签页面板（tab panel）
-             $('#tabs').tabs('add',{
-                 title:text,
-                 content:'Tab Body'+text,
-                 closable:true,
-                 tools:[{
-                     iconCls:'icon-mini-refresh',
-                     handler:function(){
-                         alert('refresh');
-                     }
-                 }]
-             });*/
-
         }
     }
+
 
     /*]]>*/
 
@@ -116,7 +74,7 @@
            data-options="plain:true,iconCls:'icon-addFilm'" style="width: 150px;">添加电影信息</a>
         <a href="javascript:openTab('电影动态管理','/link/toLinkManage','icon-dynamic')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-dynamic'" style="width: 150px;">电影动态管理</a>
-        <a href="javascript:openTab('电影信息管理','','icon-film')" class="easyui-linkbutton"
+        <a href="javascript:openTab('电影信息管理','film/toFilmManage','icon-film')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-film'" style="width: 150px;">电影信息管理</a>
         <a href="javascript:openTab('网址信息管理','webSiteManage.html','icon-website')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-website'" style="width: 150px;">网址信息管理</a>
@@ -130,5 +88,47 @@
 <div region="south" style="height: 30px;padding: 5px" align="center">
     Copyright © 断弯刀
 </div>
+
+<script type="text/javascript">
+
+    /*<![CDATA[*/
+
+    //刷新标签页内容
+    function myTabUpdate(title) {
+        if (title.valueOf()=="添加电影信息") {
+            return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/film/toAddFilm'></iframe>";
+        }
+        if (title.valueOf()=="电影信息管理") {
+            return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/film/toFilmManage'></iframe>";
+        }
+        if (title.valueOf()=="友情链接管理") {
+            return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/webSite/toWebSiteManage'></iframe>";
+        }
+        return index;
+    }
+
+    //刷新按钮绑定单击事件
+    $("body").on('click', '.icon-reload', function() {
+
+        var tabs = $('#tabs').tabs('tabs');
+        var tabIndex = $(this).closest('li').index();   //打开的第几个tab
+        var title=$('.tabs-selected').text();    //选中的tab页的title,这个是动态获取。
+
+        $('#tabs').tabs('update', {
+            tab: tabs[tabIndex],
+            options: {
+                content: myTabUpdate(title)
+            }
+        });
+    });
+
+    //双击标签页即可关闭
+    $("#tabs").bind('dblclick',function () {
+        var title=$('.tabs-selected').text();    //选中的tab页的title,这个是动态获取。
+        $("#tabs").tabs('close',title);
+    })
+
+    /*]]>*/
+</script>
 </body>
 </html>

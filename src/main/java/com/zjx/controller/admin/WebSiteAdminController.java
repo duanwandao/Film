@@ -29,6 +29,7 @@ public class WebSiteAdminController {
         return "admin/webSiteManage";
     }
 
+
     @RequestMapping("/list")
     @ResponseBody
     public Map<String, Object> list(WebSite webSite, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) throws Exception {
@@ -58,6 +59,7 @@ public class WebSiteAdminController {
 
     /**
      * 删除收录电影网址
+     *
      * @param ids
      * @return
      * @throws Exception
