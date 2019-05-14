@@ -26,6 +26,7 @@
         });
     }
 
+    //iconCls只能选择一个
     function openTab(text, url, iconCls) {
         if ($("#tabs").tabs("exists", text)) {
             $("#tabs").tabs("select", text);
@@ -34,11 +35,18 @@
             $("#tabs").tabs("add", {
                 title: text,
                 iconCls: iconCls,
-                iconCls: 'icon-reload',
                 closable: true,
                 content: content
             });
         }
+
+        // $()函数的另外一个作用：动态创建元素
+        //在标题文字后面添加span元素，就是添加reload图片，必须要有空格作为背景，否则图片不显示
+        //判断是否已经添加过元素，否则每次都会添加span元素
+        if($("span.tabs-title:contains("+text+") + span.icon-reload").length==0){
+            $("<span class='icon-reload'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>").insertAfter("span.tabs-title:contains(" + text + ")");
+        }
+
     }
 
 
@@ -72,13 +80,13 @@
     <div style="padding-top: 10px;padding-left: 10px;" data-toggle="topjui-sidemenu" data-options="data:data">
         <a href="javascript:openTab('添加电影信息','film/toAddFilm','icon-addFilm')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-addFilm'" style="width: 150px;">添加电影信息</a>
-        <a href="javascript:openTab('电影动态管理','/link/toLinkManage','icon-dynamic')" class="easyui-linkbutton"
+        <a href="javascript:openTab('电影动态管理','webSiteInfo/toWebSiteInfoManage','icon-dynamic')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-dynamic'" style="width: 150px;">电影动态管理</a>
         <a href="javascript:openTab('电影信息管理','film/toFilmManage','icon-film')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-film'" style="width: 150px;">电影信息管理</a>
-        <a href="javascript:openTab('网址信息管理','webSiteManage.html','icon-website')" class="easyui-linkbutton"
+        <a href="javascript:openTab('网址信息管理','webSite/toWebSiteManage','icon-website')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-website'" style="width: 150px;">网址信息管理</a>
-        <a href="javascript:openTab('友情链接管理','/webSite/toWebSiteManage','icon-link')" class="easyui-linkbutton"
+        <a href="javascript:openTab('友情链接管理','link/toLinkManage','icon-link')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-link'" style="width: 150px;">友情链接管理</a>
         <a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-exit'"
            style="width: 150px;">安全退出</a>
@@ -95,24 +103,29 @@
 
     //刷新标签页内容
     function myTabUpdate(title) {
-        if (title.valueOf()=="添加电影信息") {
+        if (title.valueOf() == "添加电影信息") {
             return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/film/toAddFilm'></iframe>";
         }
-        if (title.valueOf()=="电影信息管理") {
+        if (title.valueOf() == "电影动态管理") {
+            return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/webSiteInfo/toWebSiteInfoManage'></iframe>";
+        }
+        if (title.valueOf() == "电影信息管理") {
             return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/film/toFilmManage'></iframe>";
         }
-        if (title.valueOf()=="友情链接管理") {
+        if (title.valueOf() == "网址信息管理") {
             return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/webSite/toWebSiteManage'></iframe>";
         }
-        return index;
+        if (title.valueOf() == "友情链接管理") {
+            return "<iframe frameborder=0 scrolling='auto' style='width:100%;height:99.6%' src='/admin/webSite/toWebSiteManage'></iframe>";
+        }
     }
 
     //刷新按钮绑定单击事件
-    $("body").on('click', '.icon-reload', function() {
+    $("body").on('click', '.icon-reload', function () {
 
         var tabs = $('#tabs').tabs('tabs');
         var tabIndex = $(this).closest('li').index();   //打开的第几个tab
-        var title=$('.tabs-selected').text();    //选中的tab页的title,这个是动态获取。
+        var title = $('.tabs-selected').text();    //选中的tab页的title,这个是动态获取。
 
         $('#tabs').tabs('update', {
             tab: tabs[tabIndex],
@@ -123,9 +136,10 @@
     });
 
     //双击标签页即可关闭
-    $("#tabs").bind('dblclick',function () {
-        var title=$('.tabs-selected').text();    //选中的tab页的title,这个是动态获取。
-        $("#tabs").tabs('close',title);
+    $("#tabs").bind('dblclick', function () {
+        //alert($('.tabs-selected').text());
+        var title = $('.tabs-selected').text().trim();    //选中的tab页的title,这个是动态获取。
+        $("#tabs").tabs('close', title);
     })
 
     /*]]>*/

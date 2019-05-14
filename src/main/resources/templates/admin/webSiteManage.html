@@ -58,7 +58,11 @@
                 if(r){
                     $.post("/admin/webSite/delete",{ids:ids},function(result){
                         if(result.success){
-                            $.messager.alert("系统提示","数据已成功删除！");
+                            if (result.notDeleteAll) {
+                                $.messager.alert("系统提示", "以下" + result.notDeteleNumber + "个网站在电影动态信息中存在电影网站信息未能成功删除：" + result.webSiteNames);
+                            } else {
+                                $.messager.alert("系统提示","数据已成功删除！");
+                            }
                             $("#dg").datagrid("reload");
                         }else{
                             $.messager.alert("系统提示","数据删除失败，请联系管理员！");

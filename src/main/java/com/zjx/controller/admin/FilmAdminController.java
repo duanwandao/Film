@@ -2,7 +2,9 @@ package com.zjx.controller.admin;
 
 import com.zjx.entity.Film;
 import com.zjx.service.FilmService;
+import com.zjx.service.WebSiteInfoService;
 import com.zjx.util.DateUtil;
+import com.zjx.util.StringUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description
@@ -33,6 +32,9 @@ public class FilmAdminController {
 
     @Autowired
     private FilmService filmService;
+
+    @Autowired
+    private WebSiteInfoService webSiteInfoService;
 
     @RequestMapping("/toAddFilm")
     public String toAddFilm() {
@@ -121,11 +123,25 @@ public class FilmAdminController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam(value = "ids") String ids) {
         String[] idsStr = ids.split(",");
+        StringBuilder filmNames = new StringBuilder();  //未能删除的电影名字
+        int notDeteleNumber = 0;
         for (String id : idsStr) {
-            filmService.delete(Integer.parseInt(id));
+            int filmId = Integer.parseInt(id);
+            if (webSiteInfoService.getByFilmId(filmId).size() > 0) {
+                String filmName = filmService.findById(filmId).getName();
+                filmNames.append("《" + filmName + "》,");
+                notDeteleNumber++;
+            } else {
+                filmService.delete(filmId);
+            }
         }
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("success", true);
+        if (filmNames.length() > 0) {
+            resultMap.put("filmNames", filmNames.substring(0, (filmNames.length() - 1)));
+            resultMap.put("notDeleteAll", true);
+            resultMap.put("notDeteleNumber", notDeteleNumber);
+        }
         return resultMap;
     }
 
@@ -135,6 +151,23 @@ public class FilmAdminController {
         modelAndView.addObject("film", film);
         modelAndView.setViewName("admin/modifyFilm");
         return modelAndView;
+    }
+
+    /**
+     * 下拉框模糊查询用到
+     * @param q
+     * @return
+     */
+    @RequestMapping("/comboList")
+    @ResponseBody
+    public List<Film> comboList(String q) {
+        if (StringUtil.isEmpty(q)) {
+            return null;
+        }
+        Film film = new Film();
+        film.setName(q);
+        List<Film> filmList = filmService.list(film, 0, 30);  // 最多查询30条记录
+        return filmList;
     }
 
 }

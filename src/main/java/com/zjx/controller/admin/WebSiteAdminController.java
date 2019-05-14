@@ -1,7 +1,9 @@
 package com.zjx.controller.admin;
 
 import com.zjx.entity.WebSite;
+import com.zjx.service.WebSiteInfoService;
 import com.zjx.service.WebSiteService;
+import com.zjx.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,9 @@ public class WebSiteAdminController {
 
     @Autowired
     private WebSiteService webSiteService;
+
+    @Autowired
+    private WebSiteInfoService webSiteInfoService;
 
     @RequestMapping("/toWebSiteManage")
     public String toAddFilm() {
@@ -68,11 +73,42 @@ public class WebSiteAdminController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam(value = "ids") String ids) throws Exception {
         String[] idsStr = ids.split(",");
+        StringBuilder webSiteNames = new StringBuilder();  //未能删除的网站名字
+        int notDeteleNumber = 0;
         for (String id : idsStr) {
-            webSiteService.delete(Integer.parseInt(id));
+            Integer webSiteId=Integer.parseInt(id);
+            if (webSiteInfoService.getByWebSiteId(webSiteId).size() > 0) {
+                String webSiteName = webSiteService.findById(webSiteId).getName();
+                webSiteNames.append(webSiteName+" ,");
+                notDeteleNumber++;
+            } else {
+                webSiteService.delete(Integer.parseInt(id));
+            }
         }
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("success", true);
+        if (webSiteNames.length() > 0) {
+            resultMap.put("webSiteNames", webSiteNames.substring(0, (webSiteNames.length() - 1)));
+            resultMap.put("notDeleteAll", true);
+            resultMap.put("notDeteleNumber", notDeteleNumber);
+        }
         return resultMap;
+    }
+
+    /**
+     * 下拉框模糊查询用到
+     * @param q
+     * @return
+     */
+    @RequestMapping("/comboList")
+    @ResponseBody
+    public List<WebSite> comboList(String q) {
+        if (StringUtil.isEmpty(q)) {
+            return null;
+        }
+        WebSite webSite = new WebSite();
+        webSite.setUrl(q);
+        List<WebSite> webSiteList = webSiteService.list(webSite, 0, 30);// 最多查询30条记录
+        return webSiteList;
     }
 }

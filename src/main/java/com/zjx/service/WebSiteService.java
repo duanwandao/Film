@@ -37,4 +37,6 @@ public interface WebSiteService {
      * @param id
      */
     void delete(Integer id);
+
+    WebSite findById(Integer id);
 }

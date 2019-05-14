@@ -1,91 +1,87 @@
 package com.zjx.entity;
 
-import java.util.Date;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 网站动态更新电影信息实体
- * @author Administrator
  *
+ * @author Administrator
  */
 @Entity
-@Table(name="t_info")
+@Table(name = "t_info")
 public class WebSiteInfo {
 
-	@Id
-	@GeneratedValue
-	private Integer id; // 编号
-	
-	@ManyToOne
-	@JoinColumn(name="filmId")
-	private Film film; // 电影
-	
-	@ManyToOne
-	@JoinColumn(name="webSiteId")
-	private WebSite webSite; // 网站
-	
-	@Column(length=1000)
-	private String info; // 信息
-	
-	@Column(length=500)
-	private String url; // 具体网址
-	
-	private Date publishDate; // 发布日期
+    @Id
+    @GeneratedValue
+    private Integer id; // 编号
 
-	public Integer getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "filmId")
+    private Film film; // 电影
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "webSiteId")
+    private WebSite webSite; // 网站
 
-	public Film getFilm() {
-		return film;
-	}
+    @Column(length = 1000)
+    private String info; // 信息
 
-	public void setFilm(Film film) {
-		this.film = film;
-	}
+    @Column(length = 500)
+    private String url; // 具体网址
 
-	public WebSite getWebSite() {
-		return webSite;
-	}
+    private Date publishDate; // 发布日期
 
-	public void setWebSite(WebSite webSite) {
-		this.webSite = webSite;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getInfo() {
-		return info;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setInfo(String info) {
-		this.info = info;
-	}
+    public Film getFilm() {
+        return film;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setFilm(Film film) {
+        this.film = film;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public WebSite getWebSite() {
+        return webSite;
+    }
 
-	public Date getPublishDate() {
-		return publishDate;
-	}
+    public void setWebSite(WebSite webSite) {
+        this.webSite = webSite;
+    }
 
-	public void setPublishDate(Date publishDate) {
-		this.publishDate = publishDate;
-	}
-	
-	
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @JsonSerialize(using = CustomDateSerializer.class)
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+
 }

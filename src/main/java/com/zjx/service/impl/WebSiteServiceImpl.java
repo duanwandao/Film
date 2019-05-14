@@ -77,4 +77,9 @@ public class WebSiteServiceImpl implements WebSiteService {
         webSiteRepository.delete(id);
     }
 
+    @Override
+    public WebSite findById(Integer id) {
+        return webSiteRepository.findOne(id);
+    }
+
 }

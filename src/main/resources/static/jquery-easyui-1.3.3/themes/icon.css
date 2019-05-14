@@ -27,6 +27,8 @@
 }
 .icon-reload{
 	background:url('icons/reload.png') no-repeat center center;
+	margin-right:8px;
+	margin-left:-6px;
 	cursor: pointer;
 }
 .icon-search{
