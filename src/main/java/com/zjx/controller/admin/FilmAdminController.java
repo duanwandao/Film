@@ -103,7 +103,7 @@ public class FilmAdminController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    public Map<String, Object> save(Film film, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
+    public Map<String, Object> list(Film film, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
         List<Film> filmList = filmService.list(film, page - 1, rows);
         Long total = filmService.getCount(film);
         Map<String, Object> resultMap = new HashMap<>();

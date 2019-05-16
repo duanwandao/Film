@@ -82,4 +82,9 @@ public class WebSiteServiceImpl implements WebSiteService {
         return webSiteRepository.findOne(id);
     }
 
+    @Override
+    public List<WebSite> newestList(Integer page, Integer pageSize) {
+        Pageable pageable = new PageRequest(page, pageSize, Sort.Direction.DESC, "id");
+        return webSiteRepository.findAll(pageable).getContent();
+    }
 }

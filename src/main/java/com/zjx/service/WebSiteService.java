@@ -20,6 +20,14 @@ public interface WebSiteService {
     List<WebSite> list(WebSite webSite, Integer page, Integer pageSize);
 
     /**
+     * 获取最新收录网址
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    List<WebSite> newestList(Integer page,Integer pageSize);
+
+    /**
      * 获取总记录数
      * @param webSite
      * @return

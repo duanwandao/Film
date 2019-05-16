@@ -39,4 +39,9 @@ public class LinkServiceImpl implements LinkService {
     public void delete(Integer id) {
         linkRepository.delete(id);
     }
+
+    @Override
+    public List<Link> listAll() {
+        return linkRepository.findAll();
+    }
 }
