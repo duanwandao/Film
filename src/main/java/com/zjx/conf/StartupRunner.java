@@ -52,7 +52,6 @@ public class StartupRunner implements CommandLineRunner, ServletContextListener 
         application.setAttribute("newestWebSiteList", webSiteService.newestList(0, 10)); // 获取最新10条电影网站收录
         application.setAttribute("newestFilmList", filmService.list(null, 0, 10)); // 获取最新10条电影信息
         application.setAttribute("linkList", linkService.listAll()); // 查询所有友情链接
-        System.out.println();
     }
 
     @Override

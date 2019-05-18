@@ -16,7 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private String[] staticResources = {
+			"/bootstrap3/**",
 			"/ckeditor/**",
+			"/css/**",
 			"/filmImages/**",
 			"/images/**",
 			"/home/**",
@@ -42,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors().disable().headers().disable()
 				.authorizeRequests()
-					.antMatchers("/").permitAll() // 配置不需要身份认证的请求地址
+					.antMatchers("/","/film/**").permitAll() // 配置不需要身份认证的请求地址
 					.antMatchers(staticResources).permitAll()
 					.anyRequest().authenticated() // 其他所有访问路径需要身份认证
 					.and()

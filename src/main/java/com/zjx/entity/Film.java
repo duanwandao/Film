@@ -1,6 +1,7 @@
 package com.zjx.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,6 +19,7 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 编号
 
+    @NotBlank(message = "必须有实际字符哦")
     @Column(length = 200)
     private String name; // 电影名称
 

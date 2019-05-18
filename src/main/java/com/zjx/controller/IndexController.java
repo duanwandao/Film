@@ -18,7 +18,9 @@ public class IndexController {
     @RequestMapping("/")
     public ModelAndView root(){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("title","自制");
+        modelAndView.addObject("title", "首页");
+        modelAndView.addObject("mainPage", "film/indexFilm");
+        modelAndView.addObject("mainPageKey", "indexFilm");
         modelAndView.setViewName("index");
         return modelAndView;
     }
