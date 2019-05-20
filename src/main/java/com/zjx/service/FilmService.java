@@ -45,4 +45,25 @@ public interface FilmService {
      * @param id
      */
     void delete(Integer id);
+
+    /**
+     * 获取上一个电影
+     * @param id
+     * @return
+     */
+    Film getLast(Integer id);
+
+    /**
+     * 获取下一个电影
+     * @param id
+     * @return
+     */
+    Film getNext(Integer id);
+
+    /**
+     * 随机获取n个电影
+     * @param n
+     * @return
+     */
+    List<Film> randomList(Integer n);
 }
