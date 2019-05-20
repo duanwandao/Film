@@ -4,7 +4,8 @@
 
 
 
-亮点1: 使用AOP 减少重复代码   
+- 亮点1: 使用AOP 减少重复代码   
+
 
 ​	具体：当后台对电影信息、电影动态信息、网址等进行添加、修改、删除操作时，自动更新application中的缓存数据，保持前台展示的数据为最新状态。如果不使用AOP，则需要在多个controller里面添加同样的代码，十分累赘，不便于维护。
 
@@ -47,7 +48,8 @@ public class HttpAspect {
 
 
 
-亮点2：刷新按钮  图标是用的easyUI的图标，但是没有提供点击事件。easyUI每个标签页默认最右边只能至多有一个关闭按钮。所以当加载标签页时通过jQuery动态的添加元素，并添加点击事件![refresh](https://raw.githubusercontent.com/duanwandao/Film/master/doc/pictures/refresh.png)
+- 亮点2：刷新按钮  图标是用的easyUI的图标，但是没有提供点击事件。easyUI每个标签页默认最右边只能至多有一个关闭按钮。所以当加载标签页时通过jQuery动态的添加元素，并添加点击事件![refresh](https://raw.githubusercontent.com/duanwandao/Film/master/doc/pictures/refresh.png)
+
 
 主要代码(已简化)：
 
