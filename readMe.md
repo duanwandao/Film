@@ -47,7 +47,7 @@ public class HttpAspect {
 
 
 
-亮点2：刷新按钮  图标是用的easyUI的图标，但是没有提供点击事件。easyUI每个标签页默认最右边只能至多有一个关闭按钮。所以当加载标签页时通过jQuery动态的添加元素，并添加点击事件![refresh](https://raw.githubusercontent.com/duanwandao/Film/master/Film/doc/pictures/refresh.png)
+亮点2：刷新按钮  图标是用的easyUI的图标，但是没有提供点击事件。easyUI每个标签页默认最右边只能至多有一个关闭按钮。所以当加载标签页时通过jQuery动态的添加元素，并添加点击事件![refresh](https://raw.githubusercontent.com/duanwandao/Film/master/doc/pictures/refresh.png)
 
 主要代码(已简化)：
 
